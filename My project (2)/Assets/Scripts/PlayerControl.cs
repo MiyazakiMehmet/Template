@@ -9,6 +9,7 @@ public class PlayerControl : MonoBehaviour
     //Rigidbody of Character
     public Rigidbody2D rb;
     public float dashSpeed;
+    public float maxDashSpeed;
 
     //Positions
     Vector3 mousePos;
@@ -43,7 +44,14 @@ public class PlayerControl : MonoBehaviour
     void GoDirection()
     {
         //Character goes the opposite direction of where clicked
+        
         rb.AddForce(-Firepoint.right * dashSpeed, ForceMode2D.Impulse);
+
+        //If player's speed goes over the max speed it keeps speed at the max speed
+        if (rb.velocity.magnitude > maxDashSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxDashSpeed;
+        }
     }
 
     void Shoot()
