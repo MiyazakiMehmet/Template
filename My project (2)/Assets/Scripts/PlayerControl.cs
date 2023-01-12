@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public Camera cam
-        ;
+    public static PlayerControl Instance;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    public Camera cam;
+
+
     //Rigidbody of Character
     public Rigidbody2D rb;
+    public Animator animator;
     public float dashSpeed;
     public float maxDashSpeed;
 
@@ -22,10 +31,16 @@ public class PlayerControl : MonoBehaviour
     public float bulletSpeed;
     public float spread;
 
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            animator.SetTrigger("recoil");
             GoDirection();
             Shoot();
         }
