@@ -6,6 +6,7 @@ public class EnemyBehavior : MonoBehaviour
 {
     PlayerControl playerControl;
     private Transform player;
+    public Transform Aim;
     public Transform Firepoint;
 
 
@@ -33,9 +34,15 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        WeaponRotation();
+    }
+
     void WeaponRotation()
     {
-        Vector3 targetDirection = playerControl.transform.position - Firepoint.position;
+        Vector3 targetDirection = playerControl.transform.position - transform.position;
         float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+        Aim.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 }

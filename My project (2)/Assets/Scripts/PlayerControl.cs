@@ -23,7 +23,6 @@ public class PlayerControl : MonoBehaviour
     //Positions
     Vector3 mousePos;
     public Transform Firepoint;
-    public Transform ReferencePoint;
 
     //Bullet
     public GameObject bulletPrefab;
@@ -46,7 +45,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         //Mouse pos initializing
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition) - ReferencePoint.position;
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
     }   
 
     void FixedUpdate()
