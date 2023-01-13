@@ -6,7 +6,7 @@ public class BG_Scroller : MonoBehaviour
 {
     [SerializeField] private PlayerControl playerControl;
 
-    [Range(-1.2f, 1.2f)] public float shiftSpeedX, shiftSpeedY;
+    [Range(-10f, 10f)] public float shiftSpeedX, shiftSpeedY;
     private float offsetX, offsetY;
     private Material mat;
 
@@ -14,6 +14,7 @@ public class BG_Scroller : MonoBehaviour
     public Transform maxPosY;
     public Transform minPosY;
     public Transform maxPosX;
+    private bool inZone = false;
 
     private float cooldownY;
     private float cooldownX;
@@ -37,22 +38,34 @@ public class BG_Scroller : MonoBehaviour
         //Y Axis
         if(playerControl.transform.position.y >= maxPosY.position.y)
         {
+            //Setting the cooldownY to normal its normal value
             cooldownY = 0f;
-            shiftSpeedY = 1.2f;
+
+            //if player just enters the zone it will shift Y Camera according to its speed
+            if (!inZone)
+            {
+                shiftSpeedY = playerControl.rb.velocity.magnitude;
+                inZone = true;
+            }
         }
         else if(playerControl.transform.position.y <= minPosY.position.y)
         {
             cooldownY = 0f;
-            shiftSpeedY = -1.2f;
+            if (!inZone)
+            {
+                shiftSpeedY = -playerControl.rb.velocity.magnitude;
+                inZone = true;
+            }
         }
         else
         {
+            inZone = false;
             //Slowly decreases the amount of shifting speed
-            if(shiftSpeedY != 0)
+            if(shiftSpeedY != 0) //If screen still moves in Y Axis
             {
-                cooldownY += Time.deltaTime / 2f;
-                float shiftCooldown = Mathf.Lerp((shiftSpeedY > 0f ? 1.2f : -1.2f) , 0f, cooldownY);;
-                shiftSpeedY = shiftCooldown;
+                cooldownY += Time.deltaTime / 50f;
+                float shiftCooldown = Mathf.Lerp(shiftSpeedY, 0f, cooldownY);;
+                shiftSpeedY = shiftCooldown; // It will stop slowly
             }
             else
             {

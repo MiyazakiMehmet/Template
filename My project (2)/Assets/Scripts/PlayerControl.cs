@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
     public float maxDashSpeed;
 
     //Positions
-    Vector3 mousePos;
+    public Vector3 mousePos;
     public Transform Firepoint;
 
     //Bullet
