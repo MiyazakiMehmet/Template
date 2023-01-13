@@ -32,8 +32,8 @@ public class PlayerHealthSystem : MonoBehaviour
     {
         if (currentHealth > 0)
         {
-            sliderScript.SetCurrentHealth(currentHealth, maxHealth);
             currentHealth -= damageAmount;
+            sliderScript.SetCurrentHealth(currentHealth, maxHealth);
         }
     }
 }

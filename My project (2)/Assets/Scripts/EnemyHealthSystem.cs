@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyHealthSystem : MonoBehaviour
 {
+    [SerializeField] private SliderScript sliderScript;
+
     public int currentHealth;
     public int maxHealth;
 
@@ -11,12 +13,16 @@ public class EnemyHealthSystem : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        sliderScript.SetCurrentHealthEnemy(currentHealth, maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void EnemyTakeDamage(int damageAmount)
@@ -24,6 +30,7 @@ public class EnemyHealthSystem : MonoBehaviour
         if (currentHealth > 0)
         {
             currentHealth -= damageAmount;
+            sliderScript.SetCurrentHealthEnemy(currentHealth, maxHealth);
         }
     }
 }
