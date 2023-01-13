@@ -13,7 +13,6 @@ public class PlayerControl : MonoBehaviour
 
     public Camera cam;
 
-
     //Rigidbody of Character
     public Rigidbody2D rb;
     public Animator animator;
@@ -78,7 +77,7 @@ public class PlayerControl : MonoBehaviour
             Vector2 dir = Firepoint.transform.rotation * Vector2.right;
             Vector2 pdir = Vector2.Perpendicular(dir) * Random.Range(-spread, spread);
             BulletRB.velocity = (dir + pdir) * bulletSpeed;
-            //Destroy(bullet, 2f);
+            Destroy(bullet, 2f);
         }
     }
 

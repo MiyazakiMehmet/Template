@@ -2582,6 +2582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1426339238}
   - component: {fileID: 1426339239}
+  - component: {fileID: 1426339240}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -2597,7 +2598,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426339237}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3437}
+  m_LocalPosition: {x: 0, y: 0, z: -3570.9}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2671,6 +2672,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1426339240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426339237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe8209242f0bac49ad9e0fdfa9f0280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthSlider: {fileID: 1426339239}
+  High: {r: 0, g: 1, b: 0.089741945, a: 1}
+  Low: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1513590250
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,6 +3629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d96eaa7b07012b40be1c6c8dac03f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderScript: {fileID: 1426339240}
   maxHealth: 11
   currentHealth: 0
   playerAlive: 0
@@ -3730,6 +3747,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 760162981283080463, guid: 055772328481ebc43882c1cf4d387beb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 760162981283080463, guid: 055772328481ebc43882c1cf4d387beb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6571782404397749128, guid: 055772328481ebc43882c1cf4d387beb, type: 3}
       propertyPath: m_RootOrder
       value: 5

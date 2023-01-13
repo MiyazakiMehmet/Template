@@ -16,6 +16,7 @@ public class BG_Scroller : MonoBehaviour
     public Transform maxPosX;
     private bool inZone = false;
 
+    //Cooldowns
     private float cooldownY;
     private float cooldownX;
 
