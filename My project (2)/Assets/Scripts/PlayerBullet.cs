@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    public int p_AttackDamage;
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
+            other.gameObject.GetComponent<EnemyHealthSystem>().EnemyTakeDamage(p_AttackDamage);
             Destroy(gameObject);
         }
-        Physics2D.IgnoreLayerCollision(6, 7);
     }
 }
