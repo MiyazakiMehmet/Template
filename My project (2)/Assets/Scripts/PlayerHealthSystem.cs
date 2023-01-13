@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerHealthSystem : MonoBehaviour
 {
+    [SerializeField] private SliderScript sliderScript;
+
     public int maxHealth;
     public int currentHealth;
     public bool playerAlive;
@@ -14,6 +16,7 @@ public class PlayerHealthSystem : MonoBehaviour
     {
         currentHealth = maxHealth;
         playerAlive = true;
+        sliderScript.SetCurrentHealth(currentHealth, maxHealth);
     }
 
     // Update is called once per frame
@@ -29,6 +32,7 @@ public class PlayerHealthSystem : MonoBehaviour
     {
         if (currentHealth > 0)
         {
+            sliderScript.SetCurrentHealth(currentHealth, maxHealth);
             currentHealth -= damageAmount;
         }
     }
