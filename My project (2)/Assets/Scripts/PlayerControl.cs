@@ -29,22 +29,48 @@ public class PlayerControl : MonoBehaviour
     public float bulletSpeed;
     public float spread;
 
+    //Ammo
+    [SerializeField] private AmmoBarScript ammoBarScript;
+    public int maxAmmo;
+    public int currentAmmo;
+    private bool isReloading = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        
+        //Ammo
+        currentAmmo = maxAmmo;
+        ammoBarScript.SetCurrentAmmo(currentAmmo, maxAmmo);
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            animator.SetTrigger("recoil");
-            GoDirection();
-            Shoot();
-        }
-
         //Mouse pos initializing
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        if (isReloading)
+        {
+            return;
+        }
+
+        //If there is enough ammo
+        if (currentAmmo > 0)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                animator.SetTrigger("recoil");
+                GoDirection();
+                Shoot();
+            }
+        }
+
+        //Reload
+        else
+        {
+            StartCoroutine(Reload());
+            return;
+        }
     }   
 
     void FixedUpdate()
@@ -79,6 +105,21 @@ public class PlayerControl : MonoBehaviour
             BulletRB.velocity = (dir + pdir) * bulletSpeed;
             Destroy(bullet, 2f);
         }
+        //Ammo (This is seperate from others because we want to reduce ammo just 1 on the up there will be redu-
+        //ced more than 1
+        if (currentAmmo > 0)
+        {
+            currentAmmo--;
+            ammoBarScript.SetCurrentAmmo(currentAmmo, maxAmmo);
+        }
     }
 
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(2.0f);
+        currentAmmo = maxAmmo;
+        ammoBarScript.SetCurrentAmmo(currentAmmo, maxAmmo);
+        isReloading = false;
+    }
 }

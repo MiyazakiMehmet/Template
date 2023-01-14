@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AmmoBarScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Slider AmmoSlider;
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        AmmoSlider = GetComponent<Slider>();
+    }
+
+    public void SetCurrentAmmo(int currentAmmo, int maxAmmo)
+    {
+        AmmoSlider.maxValue = maxAmmo;
+        AmmoSlider.value = currentAmmo;
     }
 }
