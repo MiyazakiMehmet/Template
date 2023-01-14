@@ -31,6 +31,8 @@ public class EnemySpawner : MonoBehaviour
         currentWave = waves[currentWaveNumber];
         SpawnWave();
         GameObject[] totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        //When all enemies cleared and all enemies spawned
         if(totalEnemies.Length <= 0 && !canSpawn)
         {
             platform.SetActive(true);
