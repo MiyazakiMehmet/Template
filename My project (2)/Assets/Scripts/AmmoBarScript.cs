@@ -22,18 +22,16 @@ public class AmmoBarScript : MonoBehaviour
         AmmoSlider.value = currentAmmo;
     }
 
-    public void CheckCurrentWeapon()
+    public void CheckCurrentWeapon(Transform weapon)
     {       
-        foreach(Transform weapon in WeaponHolder.transform)
+        if(weapon.tag == "Shotgun")
         {
-            if(weapon.tag == "Shotgun")
-            {
-                gameObject.SetActive(false);
-            }
-            else
-            {
-                gameObject.SetActive(true);
-            }
+            gameObject.SetActive(true);      
         }
-    }
+        else
+        {
+            gameObject.SetActive(false); 
+        }
+    }   
 }
+

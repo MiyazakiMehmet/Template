@@ -4,6 +4,8 @@ public class WeaponSwitch : MonoBehaviour
 {
     private int selectedWeaponIndex = 0;
 
+    [SerializeField] private AmmoBarScript ammoBarScript;
+
     void Start()
     {
         SwitchWeapon();    
@@ -36,6 +38,7 @@ public class WeaponSwitch : MonoBehaviour
             if(selectedWeaponIndex == i)
             {
                 weapon.gameObject.SetActive(true);
+                ammoBarScript.CheckCurrentWeapon(weapon);
             }
             else
             {
