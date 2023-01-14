@@ -14,6 +14,8 @@ public class Wave
 
 public class EnemySpawner : MonoBehaviour
 {
+    //For Platform
+    [SerializeField] private GameObject platform;
     //To access class above in the inspector
     [SerializeField] private Wave[] waves; //List of every waves
     [SerializeField] private Transform[] spawnPoints;
@@ -28,6 +30,12 @@ public class EnemySpawner : MonoBehaviour
     {
         currentWave = waves[currentWaveNumber];
         SpawnWave();
+        GameObject[] totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if(totalEnemies.Length <= 0 && !canSpawn)
+        {
+            platform.SetActive(true);
+
+        }
     }
 
     void SpawnWave()
