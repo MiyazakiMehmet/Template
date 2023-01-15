@@ -22,11 +22,13 @@ public class PlayerControl : MonoBehaviour
     //Positions
     public Vector3 mousePos;
     public Transform Firepoint;
+    public Transform FirepointPistol;
 
     //Bullet
     public GameObject bulletPrefab;
     public int bulletCount = 10;
-    public float bulletSpeed;
+    public float bulletSpeedShotgun;
+    public float bulletSpeedPistol;
     public float spread;
 
     //Ammo
@@ -95,18 +97,29 @@ public class PlayerControl : MonoBehaviour
 
     void Shoot()
     {
-        //Launchs amount of i bullets with spreading
-        for(int i = 0; i < bulletCount; i++)
+        if (ammoBarScript.isShotgun)
         {
-            GameObject bullet = Instantiate(bulletPrefab, Firepoint.position, Firepoint.rotation);
-            Rigidbody2D BulletRB = bullet.GetComponent<Rigidbody2D>();
-            Vector2 dir = Firepoint.transform.rotation * Vector2.right;
-            Vector2 pdir = Vector2.Perpendicular(dir) * Random.Range(-spread, spread);
-            BulletRB.velocity = (dir + pdir) * bulletSpeed;
-            Destroy(bullet, 2f);
+            //Launchs amount of i bullets with spreading
+            for (int i = 0; i < bulletCount; i++)
+            {
+                GameObject bullet = Instantiate(bulletPrefab, Firepoint.position, Firepoint.rotation);
+                Rigidbody2D BulletRB = bullet.GetComponent<Rigidbody2D>();
+                Vector2 dir = Firepoint.transform.rotation * Vector2.right;
+                Vector2 pdir = Vector2.Perpendicular(dir) * Random.Range(-spread, spread);
+                BulletRB.velocity = (dir + pdir) * bulletSpeedShotgun;
+                Destroy(bullet, 2f);
+            }
         }
+        else if (ammoBarScript.isPistol)
+        {
+            GameObject pistolBullet = Instantiate(bulletPrefab, FirepointPistol.position, FirepointPistol.rotation);
+            Rigidbody2D pistolBulletRB = pistolBullet.GetComponent<Rigidbody2D>();
+            pistolBulletRB.AddForce(FirepointPistol.right * bulletSpeedPistol, ForceMode2D.Impulse);
+            Destroy(pistolBullet, 2f);
+        }
+
         //Ammo (This is seperate from others because we want to reduce ammo just 1 on the up there will be redu-
-        //ced more than 1
+        //ced more than 1 (This applies to Shotgun)
         if (currentAmmo > 0)
         {
             currentAmmo--;

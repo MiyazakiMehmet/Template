@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class AmmoBarScript : MonoBehaviour
 {
     public Slider AmmoSlider;
+    public bool isShotgun;
+    public bool isPistol;
+
 
     [SerializeField] private WeaponSwitch WeaponHolder;
  
@@ -26,7 +29,15 @@ public class AmmoBarScript : MonoBehaviour
     {       
         if(weapon.tag == "Shotgun")
         {
-            gameObject.SetActive(true);      
+            gameObject.SetActive(true);
+            isShotgun = true;
+            isPistol = false;
+        }
+        else if(weapon.tag == "Pistol")
+        {
+            gameObject.SetActive(false);
+            isShotgun = false;
+            isPistol = true;
         }
         else
         {
