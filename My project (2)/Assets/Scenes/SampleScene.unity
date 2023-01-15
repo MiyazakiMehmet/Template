@@ -2725,9 +2725,10 @@ MonoBehaviour:
   Firepoint: {fileID: 165552071}
   FirepointPistol: {fileID: 928826355}
   bulletPrefab: {fileID: 480769947306372966, guid: 210ace7480708bc47b754b2c43b51b0c, type: 3}
+  pistolBulletPrefab: {fileID: 1830298189450448095, guid: d1d1cfafb94fb7340906a2aaab3a7ba3, type: 3}
   bulletCountShotgun: 10
   bulletSpeedShotgun: 8
-  bulletSpeedPistol: 10
+  bulletSpeedPistol: 18
   spread: 0.2
   ammoBarScript: {fileID: 975670497}
   maxAmmoShotgun: 4

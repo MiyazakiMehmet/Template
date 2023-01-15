@@ -26,6 +26,7 @@ public class PlayerControl : MonoBehaviour
 
     //Bullet
     public GameObject bulletPrefab;
+    public GameObject pistolBulletPrefab;
     public int bulletCountShotgun = 10;
     public float bulletSpeedShotgun;
     public float bulletSpeedPistol;
@@ -123,7 +124,7 @@ public class PlayerControl : MonoBehaviour
         }
         else if (ammoBarScript.isPistol)
         {
-            GameObject pistolBullet = Instantiate(bulletPrefab, FirepointPistol.position, FirepointPistol.rotation);
+            GameObject pistolBullet = Instantiate(pistolBulletPrefab, FirepointPistol.position, FirepointPistol.rotation);
             Rigidbody2D pistolBulletRB = pistolBullet.GetComponent<Rigidbody2D>();
             pistolBulletRB.AddForce(FirepointPistol.right * bulletSpeedPistol, ForceMode2D.Impulse);
             Destroy(pistolBullet, 2f);
