@@ -2138,6 +2138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AmmoSlider: {fileID: 975670496}
+  isShotgun: 0
+  isPistol: 0
   WeaponHolder: {fileID: 253772675}
 --- !u!1 &1005450518
 GameObject:
@@ -2721,13 +2723,17 @@ MonoBehaviour:
   maxDashSpeed: 6
   mousePos: {x: 0, y: 0, z: 0}
   Firepoint: {fileID: 165552071}
+  FirepointPistol: {fileID: 928826355}
   bulletPrefab: {fileID: 480769947306372966, guid: 210ace7480708bc47b754b2c43b51b0c, type: 3}
-  bulletCount: 6
-  bulletSpeed: 15
+  bulletCountShotgun: 10
+  bulletSpeedShotgun: 8
+  bulletSpeedPistol: 10
   spread: 0.2
   ammoBarScript: {fileID: 975670497}
-  maxAmmo: 4
-  currentAmmo: 0
+  maxAmmoShotgun: 4
+  currentAmmoShotgun: 0
+  maxAmmoPistol: 6
+  currentAmmoPistol: 0
 --- !u!1 &1274036088
 GameObject:
   m_ObjectHideFlags: 0

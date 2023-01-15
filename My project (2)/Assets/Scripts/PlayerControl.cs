@@ -26,15 +26,18 @@ public class PlayerControl : MonoBehaviour
 
     //Bullet
     public GameObject bulletPrefab;
-    public int bulletCount = 10;
+    public int bulletCountShotgun = 10;
     public float bulletSpeedShotgun;
     public float bulletSpeedPistol;
     public float spread;
 
     //Ammo
     [SerializeField] private AmmoBarScript ammoBarScript;
-    public int maxAmmo;
-    public int currentAmmo;
+    public int maxAmmoShotgun;
+    public int currentAmmoShotgun;
+
+    public int maxAmmoPistol;
+    public int currentAmmoPistol;
     private bool isReloading = false;
 
     void Start()
@@ -42,8 +45,9 @@ public class PlayerControl : MonoBehaviour
         animator = GetComponent<Animator>();
         
         //Ammo
-        currentAmmo = maxAmmo;
-        ammoBarScript.SetCurrentAmmo(currentAmmo, maxAmmo);
+        currentAmmoShotgun = maxAmmoShotgun;
+        ammoBarScript.SetCurrentAmmo(currentAmmoShotgun, maxAmmoShotgun);
+        currentAmmoPistol = maxAmmoPistol;
     }
 
     void Update()
@@ -57,7 +61,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         //If there is enough ammo
-        if (currentAmmo > 0)
+        if (currentAmmoShotgun > 0 && ammoBarScript.isShotgun)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -67,6 +71,13 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
+        if(currentAmmoPistol > 0 && ammoBarScript.isPistol)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Shoot();
+            }
+        }
         //Reload
         else
         {
@@ -100,7 +111,7 @@ public class PlayerControl : MonoBehaviour
         if (ammoBarScript.isShotgun)
         {
             //Launchs amount of i bullets with spreading
-            for (int i = 0; i < bulletCount; i++)
+            for (int i = 0; i < bulletCountShotgun; i++)
             {
                 GameObject bullet = Instantiate(bulletPrefab, Firepoint.position, Firepoint.rotation);
                 Rigidbody2D BulletRB = bullet.GetComponent<Rigidbody2D>();
@@ -120,19 +131,32 @@ public class PlayerControl : MonoBehaviour
 
         //Ammo (This is seperate from others because we want to reduce ammo just 1 on the up there will be redu-
         //ced more than 1 (This applies to Shotgun)
-        if (currentAmmo > 0)
+        if (ammoBarScript.isShotgun && currentAmmoShotgun > 0)
         {
-            currentAmmo--;
-            ammoBarScript.SetCurrentAmmo(currentAmmo, maxAmmo);
+            currentAmmoShotgun--;
+            ammoBarScript.SetCurrentAmmo(currentAmmoShotgun, maxAmmoShotgun);
+        }
+        else if(ammoBarScript.isPistol && currentAmmoPistol > 0)
+        {
+            currentAmmoPistol--;
         }
     }
-
     IEnumerator Reload()
-    {
-        isReloading = true;
-        yield return new WaitForSeconds(2.0f);
-        currentAmmo = maxAmmo;
-        ammoBarScript.SetCurrentAmmo(currentAmmo, maxAmmo);
-        isReloading = false;
+    {   
+        if (currentAmmoShotgun <= 0 && ammoBarScript.isShotgun)
+        {
+            isReloading = true;
+            yield return new WaitForSeconds(2.0f);
+            currentAmmoShotgun = maxAmmoShotgun;
+            ammoBarScript.SetCurrentAmmo(currentAmmoShotgun, maxAmmoShotgun);
+            isReloading = false;
+        }
+        if (currentAmmoPistol <= 0 && ammoBarScript.isPistol)
+        {
+            isReloading = true;
+            yield return new WaitForSeconds(1.6f);
+            currentAmmoPistol = maxAmmoPistol;
+            isReloading = false;
+        }
     }
 }
