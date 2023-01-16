@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -44,7 +45,8 @@ public class PlayerControl : MonoBehaviour
 
     //Platform
     [SerializeField] private Transform GateBorder;
-    [SerializeField] private Transform ObstacleRight; 
+    [SerializeField] private Transform ObstacleRight;
+    [SerializeField] private CinemachineVirtualCamera vcam;
 
     void Start()
     {
@@ -193,6 +195,7 @@ public class PlayerControl : MonoBehaviour
         if(transform.position.x >= GateBorder.transform.position.x)
         {
             ObstacleRight.gameObject.SetActive(false);
+            vcam.gameObject.SetActive(true);
         }
     }
 }
