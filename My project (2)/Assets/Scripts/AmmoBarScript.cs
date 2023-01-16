@@ -31,7 +31,7 @@ public class AmmoBarScript : MonoBehaviour
         {
             gameObject.SetActive(true);
             isShotgun = true;
-            isPistol = false;
+            isPistol = false;   
         }
         else if(weapon.tag == "Pistol")
         {

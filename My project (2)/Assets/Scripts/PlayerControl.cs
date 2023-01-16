@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     public Camera cam;
-
+    IEnumerator co;
     //Rigidbody of Character
     public Rigidbody2D rb;
     public Animator animator;
@@ -31,6 +31,7 @@ public class PlayerControl : MonoBehaviour
     public float bulletSpeedShotgun;
     public float bulletSpeedPistol;
     public float spread;
+
 
     //Ammo
     [SerializeField] private AmmoBarScript ammoBarScript;
@@ -53,11 +54,22 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
+        IEnumerator co = Reload();
+
         //Mouse pos initializing
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
         if (isReloading)
         {
+            //if weapon has changed while reloading it will stop reloading
+            if (currentAmmoShotgun <= 0 && !ammoBarScript.isShotgun)
+            {
+                isReloading = false;
+            }
+            else if (currentAmmoPistol <= 0 && !ammoBarScript.isPistol)
+            {
+                isReloading = false;
+            }
             return;
         }
 
@@ -72,7 +84,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-        if(currentAmmoPistol > 0 && ammoBarScript.isPistol)
+        else if(currentAmmoPistol > 0 && ammoBarScript.isPistol)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -82,7 +94,7 @@ public class PlayerControl : MonoBehaviour
         //Reload
         else
         {
-            StartCoroutine(Reload());
+            StartCoroutine(co);
             return;
         }
     }   
@@ -143,21 +155,29 @@ public class PlayerControl : MonoBehaviour
         }
     }
     IEnumerator Reload()
-    {   
+    {
         if (currentAmmoShotgun <= 0 && ammoBarScript.isShotgun)
         {
             isReloading = true;
             yield return new WaitForSeconds(2.0f);
-            currentAmmoShotgun = maxAmmoShotgun;
-            ammoBarScript.SetCurrentAmmo(currentAmmoShotgun, maxAmmoShotgun);
-            isReloading = false;
+            //if weapon has changed before reloading it will cancel
+            if (isReloading)
+            {
+                currentAmmoShotgun = maxAmmoShotgun;
+                ammoBarScript.SetCurrentAmmo(currentAmmoShotgun, maxAmmoShotgun);
+                isReloading = false;
+            }
         }
         if (currentAmmoPistol <= 0 && ammoBarScript.isPistol)
         {
             isReloading = true;
             yield return new WaitForSeconds(1.6f);
-            currentAmmoPistol = maxAmmoPistol;
-            isReloading = false;
+            //if weapon has changed before reloading it will cancel
+            if (isReloading)
+            {
+                currentAmmoPistol = maxAmmoPistol;
+                isReloading = false;
+            }
         }
     }
 }
