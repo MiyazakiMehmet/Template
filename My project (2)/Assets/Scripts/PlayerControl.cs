@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     public Camera cam;
-    IEnumerator co;
+        
     //Rigidbody of Character
     public Rigidbody2D rb;
     public Animator animator;
@@ -41,6 +41,10 @@ public class PlayerControl : MonoBehaviour
     public int maxAmmoPistol;
     public int currentAmmoPistol;
     private bool isReloading = false;
+
+    //Platform
+    [SerializeField] private Transform GateBorder;
+    [SerializeField] private Transform ObstacleRight; 
 
     void Start()
     {
@@ -97,6 +101,9 @@ public class PlayerControl : MonoBehaviour
             StartCoroutine(co);
             return;
         }
+
+        //Gate
+        Gate();
     }   
 
     void FixedUpdate()
@@ -178,6 +185,14 @@ public class PlayerControl : MonoBehaviour
                 currentAmmoPistol = maxAmmoPistol;
                 isReloading = false;
             }
+        }
+    }
+
+    void Gate()
+    {
+        if(transform.position.x >= GateBorder.transform.position.x)
+        {
+            ObstacleRight.gameObject.SetActive(false);
         }
     }
 }
